@@ -85,10 +85,26 @@ document.addEventListener("DOMContentLoaded", function() {
                     display.textContent = currentInput;
                     console.log("Result:", result);
                 }   
-            } // handles backspace
+            } 
+            // handles backspace
             else if (button.id === "backspace") {
                 currentInput = currentInput.slice(0, -1);
-        } 
+            } 
+
+            // handles percent
+            else if (button.id === "percent") {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+            }
+
+            // handles decimals
+            else if (button.id === "decimal" || value === ".") {
+                if (!currentInput.includes(".")) {
+                    currentInput += ".";
+                }
+            }
+
+
+
             // limits input length to 12 characters
             if (currentInput.length > 12) {
             currentInput = currentInput.substring(0, 12);
