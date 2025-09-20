@@ -1,39 +1,34 @@
-function add (a, b) {
-    return a + b;
-}
-
-function subtract (a, b) {
-    return a-b;
-}
-
-function multiply (a, b) {
-    return a*b;
-}
-
-function divide (a, b) {
-    return a/b;
-}
-
-function operate (operator, a, b) {
-    a = Number(a);
-    b = Number(b);
-    if (operator === "+") {
-        return add(a, b);
-    } else if (operator === "-") {
-        return subtract(a, b);
-    } else if (operator === "*") {
-        return multiply(a, b);
-    } else if (operator === "/") {
-        if (b === 0) {
-            return "Error";
-        } else {
-            return divide(a, b);
-        }
-    } else {
-        return null;
-    }
-}
-const display = document.querySelector(".calc-typed");
-const buttons = document.querySelectorAll("button");
 const ac = document.querySelector(".ac");
-const de
+const plus = document.getElementById("plus");
+const equals = document.getElementById("equals");
+const minus = document.getElementById("minus");
+const times = document.getElementById("times");
+const divide = document.getElementById("divide");
+
+const display = document.getElementById("calc-typed");
+const operationDisplay = document.getElementById("calc-operation");
+const btn = document.querySelectorAll("button");
+
+document.addEventListener("DOMContentLoaded", function() {
+    let currentInput = "0";
+
+    btn.forEach(function(button) {
+        button.addEventListener("click", () => {
+            const value = button.textContent;
+            if (!isNaN(value)) {
+                if (currentInput === "0") {
+                    currentInput = value;
+                } else {
+                    currentInput += value;
+                }
+            }
+
+            display.textContent = currentInput;
+            if (button.classList.contains("ac")) {
+                currentInput = "0";
+                display.textContent = currentInput;
+                operationDisplay.textContent = "";
+            }
+        });
+    });
+});
