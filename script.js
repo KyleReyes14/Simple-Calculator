@@ -124,4 +124,37 @@ document.addEventListener("DOMContentLoaded", function() {
             display.textContent = currentInput;
         });
     });
+
+    // Keyboard support
+    document.addEventListener("keydown", function(e) {
+        const key = e.key; // the actual key pressed
+
+        if (!isNaN(key)) {
+            // numbers 0–9
+            const numButton = [...btn].find(b => b.textContent === key);
+            if (numButton) numButton.click();
+
+        } else if (key === "+") {
+            plus.click();
+        } else if (key === "-") {
+            minus.click();
+        } else if (key === "*" || key.toLowerCase() === "x") {
+            times.click();
+        } else if (key === "/") {
+            divide.click();
+        } else if (key === "Enter" || key === "=") {
+            equals.click();
+        } else if (key === "Backspace") {
+            backspace.click();
+        } else if (key === "%") {
+            percent.click();
+        } else if (key === "Escape") {
+            ac.click();
+        } else if (key === ".") {
+            document.getElementById("decimal").click();
+        } else if (key.toLowerCase() === "c") {
+            ac.click();
+        }
+    });
+
 });
