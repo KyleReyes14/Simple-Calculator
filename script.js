@@ -31,19 +31,19 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // handles AC
-             else if (button.classList.contains("ac")) {
+            else if (button.classList.contains("ac")) {
                 currentInput = "0";
-                display.textContent = currentInput;
                 operationDisplay.textContent = "";
                 operation = null;
                 previousInput = "";
+            }
 
             // handles operators
-            } else if (button.classList.contains("opt")) { 
+            else if (button.classList.contains("opt")) { 
                 if (value === "+") {
                     operationDisplay.textContent = currentInput + " +";
                     operation = "+";
-                } else if (value === "-" || value === "-") { 
+                } else if (value === "-") { 
                     operationDisplay.textContent = currentInput + " -";
                     operation = "-";
                 } else if (value === "x") {
@@ -55,9 +55,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 previousInput = currentInput;
                 currentInput = "0";
+            }
 
             // handles equals
-            } else if (button.id === "equals" || value === "=") {
+            else if (button.id === "equals" || value === "=") {
                 if (operation !== null && previousInput !== "") {
                     switch (operation) {
                         case "+":
@@ -70,25 +71,26 @@ document.addEventListener("DOMContentLoaded", function() {
                             result = parseFloat(previousInput) * parseFloat(currentInput);   
                             break;
                         case "/":
-                            if (parseFloat(currentInput) !== 0) { // check divisor for undefined
+                            if (parseFloat(currentInput) !== 0) {
                                 result = parseFloat(previousInput) / parseFloat(currentInput);
                             } else {
                                 result = "Error";
                             }
                             break;
                     }
-
                     operationDisplay.textContent = "";
                     operation = null;
                     previousInput = "";
                     currentInput = result.toString();
-                    display.textContent = currentInput;
-                    console.log("Result:", result);
                 }   
             } 
+
             // handles backspace
             else if (button.id === "backspace") {
                 currentInput = currentInput.slice(0, -1);
+                if (currentInput === "" || currentInput === "-") {
+                    currentInput = "0";
+                }
             } 
 
             // handles percent
@@ -103,11 +105,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
 
-
+            // handles change sign
+            else if (button.id === "change-sign" || value === "±") {
+                if (currentInput !== "0") {
+                    if (currentInput.startsWith("-")) {
+                        currentInput = currentInput.slice(1);
+                    } else {
+                        currentInput = "-" + currentInput;
+                    }
+                }
+            }
 
             // limits input length to 12 characters
             if (currentInput.length > 12) {
-            currentInput = currentInput.substring(0, 12);
+                currentInput = currentInput.substring(0, 12);
             }
 
             display.textContent = currentInput;
