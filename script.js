@@ -28,12 +28,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 } else {
                     currentInput += value;
                 }
-                
-            // limits input length to 12 characters
-            if (currentInput.length > 12) {
-                currentInput = currentInput.slice(0, 12);
+            }
+
             // handles AC
-            } else if (button.classList.contains("ac")) {
+             else if (button.classList.contains("ac")) {
                 currentInput = "0";
                 display.textContent = currentInput;
                 operationDisplay.textContent = "";
@@ -86,9 +84,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     currentInput = result.toString();
                     display.textContent = currentInput;
                     console.log("Result:", result);
-                }
+                }   
+            } // handles backspace
+            else if (button.id === "backspace") {
+                currentInput = currentInput.slice(0, -1);
+        } 
+            // limits input length to 12 characters
+            if (currentInput.length > 12) {
+            currentInput = currentInput.substring(0, 12);
             }
-            
 
             display.textContent = currentInput;
         });
