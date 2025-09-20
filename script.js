@@ -9,26 +9,47 @@ const display = document.getElementById("calc-typed");
 const operationDisplay = document.getElementById("calc-operation");
 const btn = document.querySelectorAll("button");
 
+
+
 document.addEventListener("DOMContentLoaded", function() {
     let currentInput = "0";
 
     btn.forEach(function(button) {
         button.addEventListener("click", () => {
             const value = button.textContent;
-            if (!isNaN(value)) {
+
+            // handles numbers
+            if (!isNaN(value)) { 
                 if (currentInput === "0") {
                     currentInput = value;
                 } else {
                     currentInput += value;
                 }
-            }
 
-            display.textContent = currentInput;
-            if (button.classList.contains("ac")) {
+            // handles AC
+            } else if (button.classList.contains("ac")) {
                 currentInput = "0";
                 display.textContent = currentInput;
                 operationDisplay.textContent = "";
+
+            // handles operators
+            } else if (button.classList.contains("opt")) { 
+                if (value === "+") {
+                    operationDisplay.textContent = currentInput + " +";
+                    currentInput = "0";
+                } else if (value === "−") {
+                    operationDisplay.textContent = currentInput + " -";
+                    currentInput = "0";
+                } else if (value === "×") {
+                    operationDisplay.textContent = currentInput + " ×";
+                    currentInput = "0";
+                } else if (value === "÷") {
+                    operationDisplay.textContent = currentInput + " ÷";
+                    currentInput = "0";
+                }
             }
+            display.textContent = currentInput;
         });
     });
 });
+
